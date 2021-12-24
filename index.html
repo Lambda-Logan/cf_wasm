@@ -1,0 +1,116 @@
+<html>
+
+<head>
+    <title>Creature Featur(ization)</title>
+
+    <!--<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" /> -->
+    <link rel="stylesheet" href="skeleton.css">
+    <style>
+        p,
+        ul,
+        div {
+            font-family: monospace;
+            font-size: 18px;
+        }
+    </style>
+    <script type="module">
+
+        //I've never written js or html before, so sorry if it's ugly! XD
+
+        ///// 'LOOKUP' is the main function, and the only wasm funcion used
+        import init, { run_ftzrs } from './cf_wasm.js';
+        async function run() {
+            await init();
+            history.scrollRestoration = "manual";
+            const updateResults = function () {
+                var inputA = $("#inputA").val();
+                var inputB = $("#inputB").val();
+                var inputString = $("#inputString").val();
+                //var inputSentence = $("#inputSentence").val();
+                var inputDoc = $("#inputDoc").val();
+                var result = run_ftzrs(inputA, inputB, inputString, inputDoc);
+
+                //alert(result)
+                document.getElementById("results").innerHTML = result
+            }
+            window.addEventListener("input", updateResults)
+        }
+        run();
+    </script>
+</head>
+
+<body style="background-color: #EEEEEE;">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <h2 style="color: navy" , class="header"><b>Live Featurization Demo with WASM</b></h1>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div id="ques" class="col-sm-4">
+            <h5 style="color: navy" class="docs-header"><b></b></h3>
+        </div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-2"></div>
+    </div>
+    <div class="row">
+
+
+
+        <div class="col-sm-4">
+            A:
+            <input style="font-family: monospace; background-color:turquoise;" type="number" id="inputA" placeholder="2"
+                , value="2">
+        </div>
+
+        <div class="col-sm-4">
+            B:
+            <input style="font-family: monospace; background-color:turquoise;" type="number" id="inputB" placeholder="3"
+                , value="3">
+        </div>
+
+
+        <div class="col-sm-2"></div>
+        Enter a string:
+        <div class="col-sm-4">
+
+            <input style="font-family: monospace; background-color:turquoise;" type="text" id="inputString"
+                placeholder="abcdefghij" , value="abcdefghij">
+        </div>
+
+        <br>Type a document:</br>
+        <textarea style="font-family: monospace; background-color:turquoise;" id="inputDoc" name="inputDoc" rows="3"
+            cols="64">
+To market, to market, to buy a fat pig
+Home again, home again, jiggety jig
+To market, to market, to buy a fat hog
+Home again, home again, jiggety jog
+        </textarea>
+        <div class="col-sm-4">
+            <!-- <button class="bg-light" id="buttonOne">¡Search languages!</button> -->
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <br>
+    <div id="timing"></div>
+    </br>
+    <div id="results"></div>
+    <br></br>
+    <br></br>
+
+
+
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+<footer>&copy; Copyright 2021 Logan Dimond</footer>
+
+
+
+</html>
